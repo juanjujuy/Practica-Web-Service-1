@@ -1,0 +1,56 @@
+<div class="container">
+    <section class="bg-body-secondary p-4">
+        <h1 class="text-primary display-5 fw-bold">Provincias</h1>
+
+        <!-- Campo para ingresar código -->
+        <div class="container mb-3">
+            <label class="form-label fw-bold">
+                Código del País
+            </label>
+
+            <select class="form-control" name="country" 
+            id="pais" [(ngModel)]="codigo">
+                <option value="" disabled>Seleccione Pais</option>
+                @for (pais of countries; track pais.isoCode) {
+                <option [value]="pais.isoCode">
+                    {{ pais.name }}
+                }
+            </select>
+        </div>
+
+        <!-- Botón -->
+        <button class="btn btn-primary mb-4" (click)="cargarProvincias(codigo)">
+
+            Buscar Provincias
+        </button>
+
+        <h2 class="text-secondary">Cantidad de Provincias: </h2>
+
+        <table class="table table-striped table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th>Nombre</th>
+                    <th>IsoCode</th>
+                    <th>CountryCode</th>
+                    <th>Latitud</th>
+                    <th>Longitud</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @for (provincia of provincias ; track provincia.isoCode) {
+                <tr>
+                    <td>{{ provincia.name }}</td>
+                    <td>{{ provincia.isoCode }}</td>
+                    <td>{{ provincia.countryCode }}</td>
+                    <td>{{ provincia.latitude }}</td>
+                    <td>{{ provincia.longitude }}</td>
+                </tr>
+                }
+
+            </tbody>
+        </table>
+
+    </section>
+
+</div>
