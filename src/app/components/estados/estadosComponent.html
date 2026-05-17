@@ -8,18 +8,19 @@
                 Código del País
             </label>
 
-            <select class="form-control" name="country" 
-            id="pais" [(ngModel)]="codigo">
-                <option value="" disabled>Seleccione Pais</option>
+            <select class="form-control" name="country" id="pais" [(ngModel)]="codigo">
+                <option value="" disabled selected>Seleccione Pais</option>
                 @for (pais of countries; track pais.isoCode) {
                 <option [value]="pais.isoCode">
                     {{ pais.name }}
+                </option>
                 }
             </select>
         </div>
 
         <!-- Botón -->
-        <button class="btn btn-primary mb-4" (click)="cargarProvincias(codigo)">
+        <button class="btn btn-primary mb-4" (click)="cargarProvincias(codigo)" 
+        [disabled]="!codigo">
 
             Buscar Provincias
         </button>
