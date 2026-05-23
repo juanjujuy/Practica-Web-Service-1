@@ -58,7 +58,7 @@ export class EstadosComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    this.cargarPaises();
+    //this.cargarPaises();
   }
 
   

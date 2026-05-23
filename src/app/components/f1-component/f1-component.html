@@ -1,0 +1,110 @@
+<div class="container">
+    <h1 class="display-5 text-center text-primary fw-bold">Carreras F1</h1>
+    <form #form="ngForm" novalidate>
+        <div class="form-group">
+            <label class="form-label" for="year">Año Consultado</label>
+            <input type="number" id="year" name="year" placeholder="2020" class="form-control" required min="1900"
+                max="2026" [(ngModel)]="selectYear">
+        </div>
+        <button [disabled]="form.invalid" class="btn btn-primary" type="button" (click)="cargarRaces()">Carreras del
+            año</button>
+        <button [disabled]="form.invalid" class="btn btn-primary" type="button"
+            (click)="cargarClasificacion()">Clasificacion del Año</button>
+    </form>
+    <hr>
+
+    <table class="table table-striped">
+        @if (nroTabla==1) {
+        <thead>
+            <tr>
+                <th>IdCarrera</th>
+                <th>Carrera (race)</th>
+                <th>Sesiones (season)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (raices.length==0) {
+            <tr colspan="3" class="text-center">No hay Carreras este año</tr>
+            }
+            @else {
+            @for (race of raices; track race.race_id) {
+            <tr>
+                <td>
+                    {{race.race_id}}
+                </td>
+                <td>
+                    {{race.name}}
+                </td>
+                <td>
+                    @for (seccion of race.sessions; track seccion.id) {
+                    <p>{{seccion.session_name}}</p>
+                    <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalCarrito"
+                        (click)="cargarPosiciones(seccion.id)">
+                        Ver Pocisiones
+                    </button>
+                    }
+                </td>
+            </tr>
+            }
+            }
+        </tbody>
+        }
+        @else {
+        <thead>
+            <tr>
+                <th>Position</th>
+                <th>Team Name</th>
+                <th>Team Id</th>
+                <th>Points</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (constructores.length==0) {
+                <tr colspan="3" class="text-center">No hay resultado</tr>
+            }
+            @else {
+                @for (constructor of constructoresFiltrados; track constructor.team_id) {
+                    <tr>
+                        <td>
+                            {{constructor.position}}
+                        </td>
+                        <td>{{constructor.team_name}}</td>
+                        <td>{{constructor.team_id}}</td>
+                        <td>{{constructor.points}}</td>
+                    </tr>
+                }
+            }
+        </tbody>
+        }
+    </table>
+
+</div>
+
+<div class="modal fade" id="modalCarrito" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Pociciones</h5>
+                <button class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            @if (drivers.length!=0) {
+            <div class="modal-body">
+                <ul class="list-group">
+                    @for (driver of drivers; track driver.position) {
+                    <li
+                        class="list-group-item d-flex flex-column flex-md-row justify-content-between align-items-center">
+                        {{driver.position}} - {{driver.name}}
+                    </li>
+                    }
+                </ul>
+            </div>
+            }
+            <div class="modal-footer d-flex justify-content-between">
+                <button class="btn btn-secondary" data-bs-dismiss="modal">
+                    Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
