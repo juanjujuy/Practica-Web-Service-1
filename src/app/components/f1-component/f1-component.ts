@@ -32,6 +32,7 @@ export class F1Component implements OnInit {
     this.nroTabla=1;
     this.f1Service.getRacesByYear(this.selectYear).subscribe(
       (resultado: any) => {
+        this.raices = [];
         this.raices = resultado.results;
         console.log(this.raices);
         this.cd.detectChanges();
@@ -46,6 +47,7 @@ export class F1Component implements OnInit {
   cargarPosiciones(session_id :number) {
     this.f1Service.getPositionBySession(session_id).subscribe(
       (resultado:any) => {
+        this.drivers=[];
         console.log(resultado)
         this.drivers = resultado.results.drivers;
         console.log(this.drivers);
@@ -61,6 +63,8 @@ export class F1Component implements OnInit {
     this.nroTabla=2;
     this.f1Service.getConstructoresByYear(this.selectYear).subscribe(
       (resultado:any) => {
+        this.constructores=[];
+        this.constructoresFiltrados=[];
         this.constructores = resultado.results;
         console.log(this.constructores);
         this.constructoresFiltrados.push(this.constructores[0],this.constructores[this.constructores.length-1])
