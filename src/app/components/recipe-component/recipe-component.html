@@ -1,0 +1,98 @@
+<div class="container">
+    <section class="bg-body-secondary p-4">
+        <h1 class="text-primary display-5 fw-bold">Provincias</h1>
+
+        <!-- Campo para ingresar código -->
+        <div class="container mb-3">
+            <label class="form-label fw-bold">
+                Ingrese Nombre
+            </label>
+
+            <input type="text" name="" id="" [(ngModel)]="nameRecipe">
+        </div>
+
+        <!-- Botón -->
+        <button class="btn btn-primary mb-4" (click)="buscarRecetas()" 
+        [disabled]="nameRecipe==null">
+        Buscar Receta
+        </button>
+
+        <h2 class="text-secondary">Cantidad de Recetas: </h2>
+
+        <table class="table table-striped table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Ingredients</th>
+                    <th>
+                        Imagen
+                    </th>
+                    <th>Detalle</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @for (recipe of recipes ; track recipe.id) {
+                <tr>
+                    <td>{{recipe.name}}</td>
+                    <td>{{recipe.description}}</td>
+                    <td>
+                        <ul>
+                            @for (ingredient of recipe.ingredients; track $index) {
+                            <li>{{ingredient.name}}</li>
+                            }
+                        </ul>
+                    </td>
+                    <td>
+                        <img [src]="" alt="">
+                    </td>
+                    <td>
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalLista"
+                        
+                        (click)="traducirTexto(recipe.description)">Traducir</button>
+                    </td>
+                </tr>
+                }
+
+            </tbody>
+        </table>
+
+    </section>
+
+</div>
+
+<div class="modal fade"
+     id="modalLista"
+     tabindex="-1">
+
+    <div class="modal-dialog">
+
+        <div class="modal-content bg-dark text-light">
+
+            <div class="modal-header">
+
+                <h5 class="modal-title">Detalle Traducido</h5>
+
+                <button type="button"
+                        class="btn-close btn-close-white"
+                        data-bs-dismiss="modal">
+                </button>
+
+            </div>
+
+            <div class="modal-body">
+
+                <ul>
+
+                    <div>{{texto}}1</div>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
